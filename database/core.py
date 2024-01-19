@@ -11,11 +11,19 @@ class ModelBase(pw.Model):
         database = db
 
 
+class User(ModelBase):
+    user_id = pw.IntegerField(primary_key=True)
+    username = pw.CharField()
+    first_name = pw.CharField()
+    last_name = pw.CharField(null=True)
+
+
 class History(ModelBase):
-    number = pw.TextField()
-    message = pw.TextField()
+    number = pw.AutoField()
+    user = pw.ForeignKeyField(User, backref="history")
+    name_film = pw.TextField()
 
 
-if __name__ == "main":
+def db_start():
     db.connect()
-    db.create_tables([History])
+    db.create_tables(ModelBase.__subclasses__())
