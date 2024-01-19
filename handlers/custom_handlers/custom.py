@@ -9,5 +9,5 @@ from states.user_date import UserState
 def send_low(message: Message):
     markup = markup_line()
     mess = 'Задайте свои данные для поиска'
-    bot.send_message(message.chat.id, mess, reply_markup=markup)
-    bot.set_state(message.from_user.id, UserState.custom_user)
+    bot.send_message(message.chat.id, mess, reply_markup=markup)  # ответ на сообщение
+    bot.set_state(message.from_user.id, UserState.custom_user)  # изменение статуса

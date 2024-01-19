@@ -10,5 +10,5 @@ from states.user_date import UserState
 def bot_help(message: Message):
     markup = markup_button()
     text = [f"/{command} - {desk}" for command, desk in DEFAULT_COMMANDS]
-    bot.reply_to(message, "\n".join(text), parse_mode='html', reply_markup=markup)
-    bot.set_state(message.from_user.id, UserState.help_user)
+    bot.reply_to(message, "\n".join(text), parse_mode='html', reply_markup=markup)  # ответ на сообщение
+    bot.set_state(message.from_user.id, UserState.help_user)  # изменение статуса
