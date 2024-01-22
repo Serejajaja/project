@@ -26,3 +26,21 @@
    - Количество единиц фильмов Но не больше 10
 4. Узнать историю запросов (команда /history).
    - Команда /history После ввода команды выводится краткая история запросов пользователя (последние 10 запросов).
+
+
+### Описание Api запроса
+
+Эндпоинт = https://api.kinopoisk.dev/v1.4/movie
+
+Дальше запрос составной:
+
+?page=1&limit=10&sortField=rating.kp&sortType=1&typeNumber=1&year=2000
+
+?page={page_data}&limit={limit_data}&sortField={sort_field_data}&sortType={sort_type_data}&typeNumber={type_number_data}&year={year_data}
+
+* ?page={page_data} - номер страницы для запроса
+* &limit={limit_data} - лимит выгружаемых страниц (по умолчанию 10)
+* &sortField={sort_field_data} - поле по которому будет производится фильтр 'rating.kp'
+* &sortType={sort_type_data} - тип сортировки 1 (от 0 до 10), -1 (от 10 до 0)
+* &typeNumber={type_number_data} - тип фильма 1 (movie), 2 (tv-series), 3 (cartoon), 4 (anime), 5 (animated-series)
+* &year={year_data} - год фильма, либо задано либо нет 
