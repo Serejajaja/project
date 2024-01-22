@@ -2,17 +2,17 @@ import requests
 
 from config_data.config import SiteSettings
 
-config = SiteSettings()
+config = SiteSettings()  # загружаем настройки
 
-headers = {'X-API-KEY': config.API_KEY.get_secret_value()}
+headers = {'X-API-KEY': config.API_KEY.get_secret_value()}  # заголовок для подключения к api
 
 
 def api_request(headers: dict) -> requests.Response:
-    return requests.get(config.API_URL, headers=headers)
+    return requests.get(config.API_URL, headers=headers)  # Отправляем запрос на api и возвращаем результат
 
 
-result = api_request(headers)
-print(result.text)
+result = api_request(headers)  # Результат запроса
+print(result.text)  # Вывода результата запроса
 
 
 # def api_request(endpoint: str) -> requests.Response:

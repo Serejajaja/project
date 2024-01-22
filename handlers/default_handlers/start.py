@@ -7,7 +7,7 @@ from states.user_date import UserState
 
 
 @bot.message_handler(commands=["start"])  # задаем команды на которые бот будет реагировать
-def bot_start(message: Message):
+def bot_start(message: Message) -> None:
     # Берем данные пользователя из ТГ
     user_id = message.from_user.id
     username = message.from_user.username
@@ -30,4 +30,4 @@ def bot_start(message: Message):
         mess = (f'Рад вас снова видеть, <b> {message.from_user.username} </b>!\n'
                 f'Для помощи воспользуйся меню или напиши /help.')
         bot.reply_to(message, mess, parse_mode='html')  # ответ на сообщение
-        bot.set_state(message.from_user.id, UserState.new_user)
+        bot.set_state(message.from_user.id, UserState.new_user)  # изменение статуса

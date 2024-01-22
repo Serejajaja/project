@@ -2,6 +2,7 @@ from telebot.handler_backends import State, StatesGroup
 
 
 class UserState(StatesGroup):
+    """ Создаем статусы пользователя """
     new_user = State()
     help_user = State()
     low_user = State()

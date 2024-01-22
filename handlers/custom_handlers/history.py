@@ -6,7 +6,7 @@ from states.user_date import UserState
 
 
 @bot.message_handler(commands=['history'])  # задаем команды на которые бот будет реагировать
-def send_low(message: Message):
+def send_history(message: Message) -> None:
     markup = markup_line()
     mess = 'Истории ваших запросов'
     bot.send_message(message.chat.id, mess, reply_markup=markup)  # ответ на сообщение

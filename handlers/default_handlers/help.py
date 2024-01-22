@@ -7,7 +7,7 @@ from states.user_date import UserState
 
 
 @bot.message_handler(commands=["help"])  # задаем команды на которые бот будет реагировать
-def bot_help(message: Message):
+def bot_help(message: Message) -> None:
     markup = markup_button()
     text = [f"/{command} - {desk}" for command, desk in DEFAULT_COMMANDS]
     bot.reply_to(message, "\n".join(text), parse_mode='html', reply_markup=markup)  # ответ на сообщение

@@ -3,11 +3,13 @@ from dotenv import load_dotenv, find_dotenv
 from pydantic import SecretStr, StrictStr
 from pydantic_settings import BaseSettings
 
+# Проверяем наличие env файла
 if not find_dotenv():
     exit("Переменные окружения не загружены т.к отсутствует файл .env")
 else:
     load_dotenv()
 
+# Кортеж стандартных команд
 DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
     ("help", "Вывести справку"),
@@ -18,6 +20,7 @@ DEFAULT_COMMANDS = (
 )
 
 
+# Зачем добавили в класс не знаю, но вроде так создается уникальный объект с данными для входа
 class SiteSettings(BaseSettings):
     """
     Класс со всем данными для входа, тут так же проверяется на наличие этих данных в .env
