@@ -40,10 +40,3 @@ class SiteSettings(BaseSettings):
     API_URL: StrictStr = os.getenv('API_URL', None)
     if API_URL is None:
         exit('API_URL отсутствует в переменных окружения')
-
-
-# a = SiteSettings()  # удалить
-# print(a.BOT_TOKEN)  # удалить
-# print(a.BOT_ID)  # удалить
-# print(a.API_KEY)  # удалить
-# print(a.API_URL)  # удалить

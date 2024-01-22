@@ -1,5 +1,4 @@
-from telebot import TeleBot
-from telebot.storage import StateMemoryStorage
+from telebot import TeleBot, StateMemoryStorage
 from config_data.config import SiteSettings
 
 config_bot = SiteSettings()  # загружаем настройки
