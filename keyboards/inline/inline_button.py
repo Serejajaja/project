@@ -2,7 +2,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from loader import bot
 
 
-def markup_line():
+def markup_line() -> InlineKeyboardMarkup:
     """ Функция создания клавиатуры сразу снизу после сообщения """
     markup = InlineKeyboardMarkup()  # Создаем клавиатуру
     # Добавляем кнопки в эту клавиатуру
