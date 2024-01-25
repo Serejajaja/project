@@ -27,7 +27,12 @@ class History(ModelBase):
     number = pw.AutoField()
     user = pw.ForeignKeyField(User, backref="history")  # внешний ключ, ссылающийся на пользователя; backref создаёт
     # обратную ссылку: мы сможем получить задачи пользователя с помощью user.tasks.
-    name_film = pw.TextField()
+    film_id = pw.IntegerField()
+    film_name = pw.TextField()
+    film_year = pw.IntegerField()
+    film_rating = pw.FloatField()
+    film_poster = pw.TextField()
+    film_genres = pw.TextField()
 
 
 def db_start() -> None:
