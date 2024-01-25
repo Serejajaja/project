@@ -1,7 +1,7 @@
 from telebot.types import Message
 
 from loader import bot
-from keyboards.inline.inline_button import markup_line
+from keyboards.inline.inline_button import markup_line, markup_line_next
 from states.user_date import UserState
 from config_data.config import type_films_dict, type_meny_check
 from site_API.data_request import string_request
@@ -38,7 +38,7 @@ def callback_query(call):
         print(type_films_dict[call.data])  # проверяем ответы
         sort_type_data = '1'  # сортировка рейтинга от 0 до 10
         type_number_data = call.data  # тип выбранного фильма
-        data_string_request = string_request(sort_type_data, type_number_data)
+        data_string_request = string_request(sort_type_data=sort_type_data, type_number_data=type_number_data)
         bot.set_state(call.message.from_user.id, UserState.low_user, call.message.chat.id)  # изменение статуса
         print(bot.get_state(call.message.from_user.id, call.message.chat.id))  # проверяем состояние
         print(data_string_request)  # проверяем строку
@@ -54,3 +54,46 @@ def callback_query(call):
                     f'Жанр: {format_text}')
             bot.send_message(call.message.chat.id, text=text)  # отправляем ответ
         add_history(result_json, call.message.chat.id)  # создаем историю запросов пользователя
+
+        # ответ пользователю после списка фильмов
+        bot.send_message(call.message.chat.id, text="Следующий список...", reply_markup=markup_line_next())
+        list_next.append([type_number_data, 2])  # сохраняем тип и страницу выбранного фильма для следующего запроса
+
+
+list_next = list()
+
+
+@bot.callback_query_handler(func=lambda call: call.data == 'next', state=UserState.low_user)
+def callback_query_next(call):
+
+    """
+    Функция принимающая возвращаемый ответ от пользователя на запрос следующих фильмов и готовящая запрос по api,
+        а так же обработка ответа с api и занесение данных в БД
+    """
+    print(call.data)  # проверяем поступившие данные
+    print(bot.get_state(call.message.from_user.id, call.message.chat.id))  # проверяем состояние
+
+    if call.data == 'next':  # проверяем ответы
+        page_data = str(list_next[0][1])  # номер страницы для выгрузки
+        sort_type_data = '1'  # сортировка рейтинга от 0 до 10
+        type_number_data = list_next[0][0]  # тип выбранного фильма
+        data_string_request = string_request(page_data=page_data, sort_type_data=sort_type_data, type_number_data=type_number_data)
+        bot.set_state(call.message.from_user.id, UserState.low_user, call.message.chat.id)  # изменение статуса
+        print(bot.get_state(call.message.from_user.id, call.message.chat.id))  # проверяем состояние
+        print(data_string_request)  # проверяем строку
+        api_result = api_request(data_string_request, headers)  # делаем запрос на api и получаем файл с ответом
+        result_json = check_json(api_result)  # обрабатываем файл и получаем выборку
+
+        for index in result_json:  # формируем ответ пользователю по результатам запроса
+            format_text = ', '.join(index["genres"])
+            text = (f'Название фильма: {index["name"]}\n'
+                    f'Год: {index["year"]}\n'
+                    f'Рейтинг: {index["rating"]}\n'
+                    f'Постер: {index["poster"]}\n'
+                    f'Жанр: {format_text}')
+            bot.send_message(call.message.chat.id, text=text)  # отправляем ответ
+        add_history(result_json, call.message.chat.id)  # создаем историю запросов пользователя
+
+        # ответ пользователю после списка фильмов
+        bot.send_message(call.message.chat.id, text="Следующий список...", reply_markup=markup_line_next())
+        list_next[0][1] += 1  # увеличиваем счетчик страниц

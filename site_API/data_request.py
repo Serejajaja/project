@@ -1,8 +1,8 @@
 
-def string_request(sort_type_data=None, type_number_data=None, year_data=None) -> str:
+def string_request(page_data='1', sort_type_data=None, type_number_data=None, year_data=None) -> str:
 
     # данный для api запроса
-    page_data = '1'  # номер выгружаемой страницы
+    page_data = page_data  # номер выгружаемой страницы
     limit_data = '10'  # количество результатов на странице
     sort_field_data = 'rating.kp'  # сегмент поиска
     sort_type_data = sort_type_data  # 1 от 0 до 10, -1 от 10 до 0
