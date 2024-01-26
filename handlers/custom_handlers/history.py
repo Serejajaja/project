@@ -17,7 +17,7 @@ def send_history(message: Message) -> None:
         bot.reply_to(message, "Вы не зарегистрированы. Напишите /start")
         return
 
-    history_list: List[History] = user.history.order_by(-History.number).limit(10)
+    history_list: List[History] = user.history.order_by(-History.number).limit(5)
 
     if not history_list:
         bot.send_message(message.from_user.id, "У вас еще нет истории")
