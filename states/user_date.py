@@ -10,3 +10,7 @@ class UserState(StatesGroup):
     custom_user = State()
     history_user = State()
     date_user = State()
+    question_1 = State()
+    question_2 = State()
+    question_3 = State()
+    question_4 = State()

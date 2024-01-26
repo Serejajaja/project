@@ -1,5 +1,5 @@
 
-def string_request(page_data='1', sort_type_data=None, type_number_data=None, year_data=None) -> str:
+def string_request(page_data='1', sort_type_data=None, type_number_data=None, year_data=None, rating_data=None) -> str:
 
     # данный для api запроса
     page_data = page_data  # номер выгружаемой страницы
@@ -8,6 +8,7 @@ def string_request(page_data='1', sort_type_data=None, type_number_data=None, ye
     sort_type_data = sort_type_data  # 1 от 0 до 10, -1 от 10 до 0
     type_number_data = type_number_data  # 1 (movie), 2 (tv-series), 3 (cartoon), 4 (anime), 5 (animated-series)
     year_data = year_data  # дата фильма
+    rating_data = rating_data  # рейтинг фильма
     not_genres_data = '!музыка'  # исключаемый жанр
 
     if year_data:
@@ -17,6 +18,7 @@ def string_request(page_data='1', sort_type_data=None, type_number_data=None, ye
                   f'&sortType={sort_type_data}'
                   f'&typeNumber={type_number_data}'
                   f'&year={year_data}'
+                  f'&rating.kp={rating_data}'
                   f'&genres.name={not_genres_data}')
         return result
     else:

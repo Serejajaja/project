@@ -28,7 +28,8 @@ def check_json(file_new: Any) -> list:
     key_list = ["id", "name", "year"]
     total_list = list()
     step_range = 0
-    while step_range != 10:  # значение равно количеству выгружаемых результатов
+    range_list = len(file_new['docs'])  # получаем длину списка фильмов
+    while step_range != range_list:  # значение равно количеству выгружаемых результатов
         data = file_new['docs'][step_range]
         step_dict = dict()
         for key in data:  # проходимся циклом по ключам словаря
