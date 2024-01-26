@@ -19,9 +19,20 @@ def send_custom(message: Message) -> None:
         return
 
     mess = ('Задайте свои данные для поиска!\n'
-            'Введите С какого года искать YYYY:')
+            'Введите С какого года искать YYYY:\n'
+            'Для отмены введите /cancel')
     bot.send_message(message.chat.id, mess)  # ответ на сообщение
     bot.set_state(message.from_user.id, UserState.question_1, message.chat.id)  # изменение статуса
+
+
+@bot.message_handler(state="*", commands=['cancel'])
+def cancel_state(message):
+    """
+    Отмена выполнения сценария
+    """
+    bot.send_message(message.chat.id, "Выбор отменен.\n"
+                                      "Для вызова меню /help.")
+    bot.delete_state(message.from_user.id, message.chat.id)
 
 
 @bot.message_handler(state=UserState.question_1)
@@ -35,7 +46,8 @@ def request_year_down(message: Message) -> None:
     if int(message.text) > 2050:
         bot.send_message(message.from_user.id, "Год не может быть больше 2050:")
         return
-    bot.send_message(message.from_user.id, "Введите ПО какой год искать YYYY:")
+    bot.send_message(message.from_user.id, "Введите ПО какой год искать YYYY:\n"
+                                           "Для отмены введите /cancel")
     bot.set_state(message.from_user.id, UserState.question_2, message.chat.id)
     with bot.retrieve_data(message.from_user.id) as data:
         data["year_down"] = message.text
@@ -54,7 +66,8 @@ def request_year_up(message: Message) -> None:
         if int(message.text) > 2050:
             bot.send_message(message.from_user.id, "Год не может быть больше 2050:")
             return
-        bot.send_message(message.from_user.id, "Введите минимальный рейтинг 0 - 10:")
+        bot.send_message(message.from_user.id, "Введите минимальный рейтинг 0 - 10:\n"
+                                               "Для отмены введите /cancel")
         bot.set_state(message.from_user.id, UserState.question_3, message.chat.id)
         data["year_up"] = message.text
 
@@ -68,7 +81,8 @@ def request_rating_down(message: Message) -> None:
         text = f"Рейтинг должен быть в диапазоне 0 - 10"
         bot.send_message(message.from_user.id, text=text)
         return
-    bot.send_message(message.from_user.id, "Введите максимальный рейтинг 0 - 10:")
+    bot.send_message(message.from_user.id, "Введите максимальный рейтинг 0 - 10:\n"
+                                           "Для отмены введите /cancel")
     bot.set_state(message.from_user.id, UserState.question_4, message.chat.id)
     with bot.retrieve_data(message.from_user.id) as data:
         data["rating_down"] = message.text
@@ -88,7 +102,8 @@ def request_rating_up(message: Message) -> None:
             text = f"Рейтинг не может быть меньше {data['rating_down']}"
             bot.send_message(message.from_user.id, text=text)
             return
-    bot.send_message(message.from_user.id, "Выберите категорию:", reply_markup=markup_line())
+    bot.send_message(message.from_user.id, "Выберите категорию:\n"
+                                           "Для отмены введите /cancel", reply_markup=markup_line())
     bot.set_state(message.from_user.id, UserState.custom_user, message.chat.id)
     data["rating_up"] = message.text
 
