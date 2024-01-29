@@ -23,7 +23,8 @@ def bot_start(message: Message) -> None:
         )
         mess = (f'Привет, <b> {message.from_user.username}! </b>\n'
                 f'Для помощи воспользуйся меню или напиши /help.\n'
-                f'Данный бот поможет тебе подобрать кино картины по рейтингу.')
+                f'Данный бот поможет тебе подобрать кино картины по рейтингу.\n'
+                f'Или составить свой запрос по году и рейтингу.')
         bot.reply_to(message, mess, parse_mode='html')  # ответ на сообщение
         bot.set_state(message.from_user.id, UserState.new_user, message.chat.id)  # изменение статуса
     except IntegrityError:
