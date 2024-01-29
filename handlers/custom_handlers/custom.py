@@ -1,6 +1,6 @@
 from time import sleep
 from typing import Any
-from config_data.config import type_films_dict, type_meny_check
+from config_data.config import type_films, type_meny_check
 from database.core import User
 from keyboards.inline.inline_button import markup_line, markup_line_next
 from loader import bot
@@ -133,7 +133,7 @@ def callback_query(call: Any) -> None:
         а так же обработка ответа с api и занесение данных в БД
     """
     with bot.retrieve_data(call.message.chat.id) as data:  # создаем временную переменную для хранения данных
-        if call.data in type_films_dict:  # проверяем ответы
+        if call.data in type_films:  # проверяем ответы
             if data["year_down"] == data["year_up"]:
                 year_data = data["year_down"]
             else:
