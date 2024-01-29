@@ -6,6 +6,7 @@ from states.user_date import UserState
 from config_data.config import type_films_dict, type_meny_check
 from database.core import User, History
 from typing import List
+from time import sleep
 
 
 # задаем команды на которые бот будет реагировать
@@ -33,5 +34,6 @@ def send_history(message: Message) -> None:
                 f'Постер: {string.film_poster}\n'
                 f'Жанр: {format_text}')
         bot.send_message(message.from_user.id, text=text)  # отправляем ответ
+        sleep(1)
     bot.set_state(message.from_user.id, UserState.history_user)
 

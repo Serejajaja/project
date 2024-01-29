@@ -7,6 +7,7 @@ from config_data.config import type_films_dict, type_meny_check
 from site_API.data_request import string_request
 from site_API.core import api_request, headers, check_json, add_history
 from database.core import User
+from time import sleep
 
 
 # задаем команды на которые бот будет реагировать
@@ -93,6 +94,7 @@ def callback_query_next(call):
                         f'Постер: {index["poster"]}\n'
                         f'Жанр: {format_text}')
                 bot.send_message(call.message.chat.id, text=text)  # отправляем ответ
+                sleep(2.5)
             add_history(result_json, call.message.chat.id)  # создаем историю запросов пользователя
 
             # ответ пользователю после списка фильмов
