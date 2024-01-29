@@ -1,6 +1,6 @@
 
 def string_request(page_data='1', sort_type_data=None, type_number_data=None, year_data=None, rating_data=None) -> str:
-
+    """ На основание данных от пользователя формируем строку для api запроса """
     # данный для api запроса
     page_data = page_data  # номер выгружаемой страницы
     limit_data = '5'  # количество результатов на странице
@@ -11,7 +11,7 @@ def string_request(page_data='1', sort_type_data=None, type_number_data=None, ye
     rating_data = rating_data  # рейтинг фильма
     not_genres_data = '!музыка'  # исключаемый жанр
 
-    if year_data:
+    if year_data:  # если запрос пользователя ручной
         result = (f'?page={page_data}'
                   f'&limit={limit_data}'
                   f'&sortField={sort_field_data}'
@@ -21,7 +21,7 @@ def string_request(page_data='1', sort_type_data=None, type_number_data=None, ye
                   f'&rating.kp={rating_data}'
                   f'&genres.name={not_genres_data}')
         return result
-    else:
+    else:  # если запрос по умолчанию
         result = (f'?page={page_data}'
                   f'&limit={limit_data}'
                   f'&sortField={sort_field_data}'

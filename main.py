@@ -1,8 +1,8 @@
+from database.core import db_start
 from loader import bot
 import handlers  # noqa  # noqa отключает проверку строки на правила в данном случае на использование в коде импорта
 from telebot.custom_filters import StateFilter
 from utils.set_bot_commands import set_default_commands
-from database.core import db_start
 
 
 if __name__ == "__main__":

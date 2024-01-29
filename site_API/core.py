@@ -1,25 +1,24 @@
-import requests
 import json
-
+import os
+from typing import Any
 from config_data.config import SiteSettings
 from database.core import History
-from pprint import pprint
-from typing import Any
+import requests
+
 
 config = SiteSettings()  # загружаем настройки
 
 headers = {'X-API-KEY': config.API_KEY.get_secret_value()}  # заголовок для подключения к api
 
 
-def api_request(string_data, headers: dict) -> requests.Response:
+def api_request(string_data: str, headers: dict) -> requests.Response:
     """ Отправляем запрос на api и возвращаем результат """
-    my_req = requests.get(config.API_URL + string_data, headers=headers)
+    my_req = requests.get(config.API_URL + string_data, headers=headers)  # Отправили составной api запрос
     result = json.loads(my_req.text.replace('\xa0', ' '))  # Сделали из текста словарь и удалили лишний символ
     with open('result.json', 'w', encoding='utf8') as file:  # Загрузили в json Файл для удобства просмотра
         json.dump(result, file, ensure_ascii=False, indent=4)
-    with open(r'C:\Users\xXx\PycharmProjects\python_basic_diploma\result.json', 'r', encoding='utf8') as file:
+    with open(os.path.abspath(os.path.join('result.json')), 'r', encoding='utf8') as file:
         data_file = json.load(file)
-    # pprint(result)  # Вывода результата запроса УДАЛИТЬ
     return data_file
 
 
@@ -61,10 +60,9 @@ def check_json(file_new: Any) -> list:
     return total_list
 
 
-def add_history(data, user_id):
-    # Создаем класс с данными фильма для базы данных
+def add_history(data: Any, user_id: int) -> None:
+    """ Добавляем фильм БД и связываем его с пользователем"""
     for position in data:
-        print(position)  # УДАЛИТЬ
         History.create(
             user=user_id,
             film_id=position["id"],

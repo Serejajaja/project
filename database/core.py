@@ -7,6 +7,7 @@ db = pw.SqliteDatabase('database.db')
 
 # Создаем базовый класс
 class ModelBase(pw.Model):
+    """ Данный класс родитель создает базу данных с установкой даты по умолчанию """
     created_at = pw.DateField(default=datetime.now())  # дата общая для обоих классов в БД
 
     class Meta:
@@ -15,6 +16,7 @@ class ModelBase(pw.Model):
 
 # Создаем класс пользователя
 class User(ModelBase):
+    """ Данный класс наследник создает пользователя в БД """
     user_id = pw.IntegerField(primary_key=True)  # первичный ключ модели, будет совпадать с Telegram ID.
     # Это значит, что он будет уникальным для всей таблицы.
     username = pw.CharField()
@@ -24,6 +26,7 @@ class User(ModelBase):
 
 # Создаем класс истории запросов пользователя
 class History(ModelBase):
+    """ Данный класс наследник создает историю пользователя в БД """
     number = pw.AutoField()
     user = pw.ForeignKeyField(User, backref="history")  # внешний ключ, ссылающийся на пользователя; backref создаёт
     # обратную ссылку: мы сможем получить задачи пользователя с помощью user.tasks.

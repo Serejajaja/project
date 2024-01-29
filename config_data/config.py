@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv, find_dotenv
+from dotenv import find_dotenv, load_dotenv
 from pydantic import SecretStr, StrictStr
 from pydantic_settings import BaseSettings
 
@@ -37,7 +37,7 @@ type_meny_check = (
 )
 
 
-# Зачем добавили в класс не знаю, но вроде так создается уникальный объект с данными для входа
+# Создаем единый класс со всеми данными для входа
 class SiteSettings(BaseSettings):
     """
     Класс со всем данными для входа, тут так же проверяется на наличие этих данных в .env

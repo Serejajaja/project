@@ -1,5 +1,6 @@
-from telebot import TeleBot, StateMemoryStorage
 from config_data.config import SiteSettings
+from telebot import StateMemoryStorage, TeleBot
+
 
 config_bot = SiteSettings()  # загружаем настройки
 TOKEN = config_bot.BOT_TOKEN.get_secret_value()  # импортировали токен из конфига
