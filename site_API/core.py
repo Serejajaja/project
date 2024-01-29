@@ -24,40 +24,40 @@ def api_request(string_data: str, headers: dict) -> requests.Response:
 
 def check_json(file_new: Any) -> list:
     """ Данная функция обрабатывает json файл и возвращает список со словарями по каждому фильму"""
-    key_list = ["id", "name", "year"]
-    total_list = list()
+    key_sked = ["id", "name", "year"]
+    total_sked = list()
     step_range = 0
-    range_list = len(file_new['docs'])  # получаем длину списка фильмов
-    while step_range != range_list:  # значение равно количеству выгружаемых результатов
+    range_sked = len(file_new['docs'])  # получаем длину списка фильмов
+    while step_range != range_sked:  # значение равно количеству выгружаемых результатов
         data = file_new['docs'][step_range]
-        step_dict = dict()
+        step_result = dict()
         for key in data:  # проходимся циклом по ключам словаря
-            if key in key_list:
+            if key in key_sked:
                 if data[key] is None:
                     if key == "name":
-                        step_dict["name"] = data["alternativeName"]
+                        step_result["name"] = data["alternativeName"]
                     else:
-                        step_dict[key] = 'Нет'
+                        step_result[key] = 'Нет'
                 else:
-                    step_dict[key] = data[key]
+                    step_result[key] = data[key]
             if key == "rating":
                 if data[key] is None:
-                    step_dict[key] = 'Нет'
+                    step_result[key] = 'Нет'
                 else:
-                    step_dict[key] = data[key]["kp"]
+                    step_result[key] = data[key]["kp"]
             if key == "poster":
                 if data[key]["url"] is None:
-                    step_dict[key] = 'Нет'
+                    step_result[key] = 'Нет'
                 else:
-                    step_dict[key] = data[key]["url"]
+                    step_result[key] = data[key]["url"]
             if key == "genres":
-                genres_list = list()
+                genres_sked = list()
                 for index in data[key]:
-                    genres_list.append(index["name"])
-                step_dict[key] = genres_list
+                    genres_sked.append(index["name"])
+                step_result[key] = genres_sked
         step_range += 1
-        total_list.append(step_dict)  # добавляем результат по одному фильму в общий список
-    return total_list
+        total_sked.append(step_result)  # добавляем результат по одному фильму в общий список
+    return total_sked
 
 
 def add_history(data: Any, user_id: int) -> None:

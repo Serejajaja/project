@@ -21,16 +21,16 @@ def send_history(message: Message) -> None:
         bot.reply_to(message, "Вы не зарегистрированы. Напишите /start")
         return
 
-    history_list: List[History] = user.history.order_by(-History.number).limit(5)  # создаем список истории из БД
+    history_sked: List[History] = user.history.order_by(-History.number).limit(5)  # создаем список истории из БД
 
-    if not history_list:  # Проверяем наличие истории
+    if not history_sked:  # Проверяем наличие истории
         bot.send_message(message.from_user.id, "У вас еще нет истории")
         return
 
     mess = 'История последнего запроса'
     bot.send_message(message.from_user.id, mess)  # ответ на сообщение
 
-    for string in history_list:
+    for string in history_sked:
         format_text = string.film_genres.replace("[", '').replace("]", '').replace("'", '')  # фильтруем строку
         text = (f'Название фильма: {string.film_name}\n'
                 f'Год: {string.film_year}\n'

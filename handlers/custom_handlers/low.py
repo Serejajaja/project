@@ -1,6 +1,6 @@
 from time import sleep
 from typing import Any
-from config_data.config import type_films_dict, type_meny_check
+from config_data.config import type_films, type_meny_check
 from database.core import User
 from keyboards.inline.inline_button import markup_line, markup_line_next
 from loader import bot
@@ -34,7 +34,7 @@ def callback_query(call: Any) -> None:
     Функция принимающая возвращаемый ответ после выбора категории пользователем и готовящая запрос по api,
         а так же обработка ответа с api и занесение данных в БД
     """
-    if call.data in type_films_dict:  # проверяем ответы
+    if call.data in type_films:  # проверяем ответы
         sort_type_data = '1'  # сортировка рейтинга от 0 до 10
         type_number_data = call.data  # тип выбранного фильма
         data_string_request = string_request(sort_type_data=sort_type_data, type_number_data=type_number_data)
