@@ -9,6 +9,7 @@ class UserState(StatesGroup):
     high_user = State()
     custom_user = State()
     history_user = State()
+    top = State()
     date_user = State()
     question_1 = State()
     question_2 = State()

@@ -8,7 +8,8 @@ def markup_button() -> ReplyKeyboardMarkup:
     low = KeyboardButton('Низкий рейтинг 🔽')
     high = KeyboardButton('Высокий рейтинг 🔼')
     custom = KeyboardButton('Выборочный рейтинг 📶')
+    top = KeyboardButton('Топ списки 🔝')
     history = KeyboardButton('История запросов 📖')
     # Добавляем кнопки
-    markup.add(low, high, custom, history)
+    markup.add(low, high, custom, top, history)
     return markup  # возвращаем результат
