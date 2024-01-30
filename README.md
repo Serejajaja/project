@@ -69,6 +69,11 @@
 ?page={page_data}&limit={limit_data}&sortField={sort_field_data}&sortType={sort_type_data}&typeNumber={type_number_data}
 &genres.name={not_genres_data}
 
+Пример Топ запроса:
+?page=1&limit=5&sortField=rating.kp&sortType=1&lists=top250
+
+Шаблон Топ запроса:
+?page={page_data}&limit={limit_data}&sortField={sort_field_data}&sortType={sort_type_data}&lists={type_sort_data}
 
 
 * ?page={page_data} - номер страницы для запроса
@@ -79,3 +84,4 @@
 * &year={year_data} - год фильма, либо задано либо нет
 * &rating.kp={rating_data} - рейтинг фильма, либо задано либо нет
 * &genres.name={not_genres_data} - исключаемый жанр '!музыка' так как не относится к кинотематике
+* &lists={type_sort_data} - тип топ запроса
